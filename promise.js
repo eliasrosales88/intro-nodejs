@@ -45,3 +45,11 @@ promesa.then(res =>{
     console.log('Promesa rechazada', err);
     
 })
+
+setTimeout(()=>{
+    //Me susbscribo a una promesa ya completada
+    promesa.then(()=>{
+        console.log('Promesa inicial completada');
+        
+    });
+}, 10000)
