@@ -11,7 +11,11 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+
+// Aqui cambiamos la extension de ejs a html
+app.set('view engine', 'html');
+app.engine('html', require('ejs').__express);
+
 
 //Middlewares ---> una funcion que recibe 3 parametros
 app.use(logger('dev'));
@@ -34,6 +38,13 @@ app.use(( req, res, next)=> {
   next();
 
 })
+
+
+
+
+app.locals.title = 'NodeAPI';
+
+
 
 
 /* 
