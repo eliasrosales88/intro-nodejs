@@ -15,11 +15,33 @@ function sleep(miliSeconds) {
 const promesa = sleep(2000);
 console.log('promesa',promesa);
 
-
 //consumir la promesa
 promesa.then(res =>{
     console.log('La promesa se completo', res);  
-}).catch(err => {
+})//.then() devuelve una promesa, que podemos consumir con otro .then()
+.then(()=>{
+    return sleep(2000).then(()=>{
+        console.log('otra cosa');
+        // throw new Error('chungo');
+        
+    });
+}).then(()=>{
+    return sleep(2000).then(()=>{
+        console.log('otra cosa');
+        
+    });
+}).then(()=>{
+    return sleep(2000).then(()=>{
+        console.log('otra cosa');
+        
+    });
+}).then(()=>{
+    return sleep(2000).then(()=>{
+        console.log('otra cosa');
+        
+    });
+})
+.catch(err => {
     console.log('Promesa rechazada', err);
     
 })
