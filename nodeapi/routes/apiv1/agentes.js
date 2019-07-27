@@ -5,6 +5,11 @@ const router = express.Router();
 
 const Agente = require('../../models/Agente');
 
+/* 
+ * GET /agentes
+ * return lista de agentes
+ */
+
 router.get('/',  async (req, res, next) =>{
     
     // Version con callbacks
@@ -20,7 +25,10 @@ router.get('/',  async (req, res, next) =>{
     
     // Version con promesas y async await    
     try {
-        const agentes = await Agente.find().exec();
+
+        const limit = parseInt(req.query.limit); //forzamos error con limit
+        
+        const agentes = await Agente.find().limit(limit).exec();
         res.json({ success: true, agentes: agentes });
         
     } catch (err) {
@@ -29,4 +37,25 @@ router.get('/',  async (req, res, next) =>{
 });
 
 
+/**
+ * Get /agentes:id
+ * Obtiene un agente
+ */
+
+router.get('/:id', async (req, res, next) =>{
+    try {
+        const _id = req.params.id;
+        const agente = await Agente.findById(_id).exec();//exec() sobraria ya que hay un await por delante
+
+        if (!agente) {
+            res.status(404).json({ success: false });// con 404 bastaria
+            return;
+        }
+
+        res.json({ success: true, result: agente });
+
+    } catch (err) {
+        next(err);
+    }
+})
 module.exports = router;

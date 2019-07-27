@@ -70,8 +70,16 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
 if (err.array) {
+  err.status = 422;
   const errInfo = err.array({onlyFirstError: true})[0];
-  err.message = `Not valid - ${errInfo.param} ${errInfo.msg}`;
+  err.message = isAPI(req)? { message: 'Not valid', errors: err.mapped() }:`Not valid - ${errInfo.param} ${errInfo.msg}`;
+}
+
+res.status(err.status || 500);
+
+if (isAPI(req)) {
+  res.json({ success: false, error: err.message});
+  return;
 }
 
   // set locals, only providing error in development
@@ -79,8 +87,14 @@ if (err.array) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  res.render('error.ejs');
 });
+
+function isAPI(req) {
+  return req.originalUrl.indexOf('/apiv') === 0;
+  console.log(req);
+  
+}
+
 
 module.exports = app;

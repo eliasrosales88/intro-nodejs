@@ -38,14 +38,15 @@ router.get('/params/:id([0-9]+)/piso/:piso/puerta/:puerta', (req, res, next) => 
 });
 
 
-// // Parametros en querystring
-// router.get('/enquerystring', query('color').isLowercase().withMessage('must be lower case')
-//   , (req, res, next) => {
+// Parametros en querystring
+// router.get('/enquerystring', 
+//   query('color').isLowercase().withMessage('must be lower case'),
+//   query('talla').isLowercase().withMessage('must be numeric')
+// , (req, res, next) => {
 //     validationResult(req).throw();//lanza excepcion si no valida
 //     //si llego aqui es que los parametros de entrada son validos
 //     console.log('req.query',req.query);
 //   res.send('ok');
-  
 // });
 
 // Recibiendo peticion post
