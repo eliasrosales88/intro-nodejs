@@ -26,6 +26,13 @@ app.use(express.static(path.join(__dirname, 'public')));// Otro middleware que s
 // app.use('/pdf', express.static(pat.join(__dirname, 'd:pdf')));
 
 
+/* 
+ *  Conexion con la base de datos
+ */
+
+require('./lib/connectMongoose')
+
+
 app.use(( req, res, next)=> {
   // Un middleware tiene que hacer una de 2 cosas:
 
