@@ -30,7 +30,9 @@ app.use(express.static(path.join(__dirname, 'public')));// Otro middleware que s
  *  Conexion con la base de datos
  */
 
-require('./lib/connectMongoose')
+require('./lib/connectMongoose');
+require('./models/Agente');
+
 
 
 app.use(( req, res, next)=> {
@@ -46,13 +48,12 @@ app.use(( req, res, next)=> {
 
 })
 
+/*  
+ * Rutas de mi API
+ */
 
-
-
+app.use('/apiv1/agentes', require('./routes/apiv1/agentes'));
 app.locals.title = 'NodeAPI';
-
-
-
 
 /* 
  * Rutas de mi aplicacion
