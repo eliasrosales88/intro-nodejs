@@ -47,7 +47,7 @@ router.get('/',  async (req, res, next) =>{
         }
 
         const agentes = await Agente.list({filter: filter, skip, limit, fields, sort});// si colocamos llaves dentro de list podemos decir que el orden ya no es relevante
-        res.json({ success: true, agentes: agentes });
+        res.json({ success: true, results: agentes });
         
     } catch (err) {
         next(err);
